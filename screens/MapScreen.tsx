@@ -1,26 +1,41 @@
 // screens/MapScreen.tsx
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { collectionPoints } from '../mockData';
+import { View, StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
 const MapScreen = () => {
   return (
-    <View>
-      <Text>Collection Points</Text>
-      <FlatList
-        data={collectionPoints}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={{ marginVertical: 10, padding: 10, borderWidth: 1 }}>
-            <Text>Location: {item.location}</Text>
-            <Text>Accepted Waste: {item.type}</Text>
-            <Text>Status: {item.status}</Text>
-            <Text>Distance: {item.distance}</Text>
-          </View>
-        )}
-      />
+    <View style={styles.container}>
+      <MapView
+        style={StyleSheet.absoluteFillObject}
+        initialRegion={{
+          latitude: 48.8566,
+          longitude: 2.3522,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+      >
+        {/* Example Collection Points */}
+        <Marker
+          coordinate={{ latitude: 48.857, longitude: 2.351 }}
+          title="Recycling Bin"
+          description="Glass, Paper, Plastic"
+          pinColor="green"
+        />
+        <Marker
+          coordinate={{ latitude: 48.855, longitude: 2.354 }}
+          title="Reported Trash"
+          description="Overflowing bin"
+          pinColor="red"
+        />
+        {/* Add more mock markers as needed */}
+      </MapView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+});
 
 export default MapScreen;
